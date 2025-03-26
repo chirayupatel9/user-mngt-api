@@ -4,7 +4,7 @@ const mongoose = require('mongoose'); // Import mongoose
 const app = express();
 const userRoutes = require('./routes/userRoutes'); // Import user routes
 const basicRoutes = require('./routes/basicRoutes'); // Import basic routes
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Use port from .env or default to 3000
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -19,10 +19,10 @@ mongoose.connect(process.env.MONGO_URI)
     });
 
 // Basic routes
-app.use('/', basicRoutes);
+app.use('/', basicRoutes); // Mount basic routes at the root path
 
 // User routes (protected)
-app.use('/users', userRoutes);
+app.use('/users', userRoutes); // Mount user routes at /users
 
 // Start the server
 app.listen(PORT, () => {
